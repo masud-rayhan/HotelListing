@@ -5,6 +5,7 @@ using HotelListing.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,10 @@ namespace HotelListing
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
-            
+
+
+            services.AddAuthentication();
+            services.ConfigureIdentity();
             services.AddCors(o =>
             {
                 o.AddPolicy("AllowAll", builder =>
@@ -41,6 +45,7 @@ namespace HotelListing
                     .AllowAnyHeader()
                 );
             });
+            
 
             services.AddAutoMapper(typeof(MapperInitilizer));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
