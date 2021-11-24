@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HotelListing.Models
 {
-    public class CountryDTO : CreateCountryDTO
+    public class CountryDTO : UpdateCountryDTO
     {
         public int Id { get; set; }
         
@@ -19,6 +19,11 @@ namespace HotelListing.Models
         [Required]
         [StringLength(maximumLength: 50, ErrorMessage = "ShortCountry Name Is Too Long")]
         public string ShortName { get; set; }
-        public  ICollection<HotelDTO> Hotels { get; set; }
+        
+    }
+
+    public class UpdateCountryDTO : CreateCountryDTO
+    {
+        public IList<CountryDTO> Countries { get; set; }
     }
 }
